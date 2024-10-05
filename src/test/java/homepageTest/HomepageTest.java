@@ -39,17 +39,22 @@ public void  clickLogInButtonTest() {
 }
 
 
-@Test
+@Test(groups={"regressionTest"})
 public void applicationTest() {
 	homePage.applicationOpen();
 	
 	
 }
 
-
-
-
 @Test
+
+public void clickAutomationTest() {
+	homePage.clickLogInButton();
+	homePage.clickAutomation();
+}
+
+
+@Test 
 
 
 public void firstNameValidationTest() {
@@ -92,5 +97,9 @@ homePage.verifyPhoneNumber();
 
 public void verifyPasswordTest() {
 	homePage.verifyPassword();
+}
+@Test
+public void personalImageAndPhotoIdValidationTest() {
+	homePage.personalImageAndPhotoIdValidation();
 }
 }
