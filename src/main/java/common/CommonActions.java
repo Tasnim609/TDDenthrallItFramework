@@ -34,6 +34,7 @@ public class CommonActions {
 			// getMessage() Returns the detail message string of this throwable.
 		}
 	}
+
 	public static void clickElementThenTab(WebElement element) {
 		try {
 			element.sendKeys(Keys.TAB);
@@ -44,6 +45,7 @@ public class CommonActions {
 			Assert.fail();
 		}
 	}
+
 	// common method for sleep()
 	public static void pause(long millis) {
 		try {
@@ -265,10 +267,10 @@ public class CommonActions {
 	// Attribute is coming from package constants, we will check the outcome later
 	// Why String type see next method
 	public static String getAttributeValue(WebElement element, Attribute attribute) {
-		String value=null;
+		String value = null;
 		try {
 			String atr = attribute.getTheAttribute();
-			 value = element.getAttribute(atr);
+			value = element.getAttribute(atr);
 			Loggers.logTheTest("Value for the attribute \"" + attribute + "\" in the WebElement " + element
 					+ " is executed and receive --> " + value);
 		} catch (NoSuchElementException | NullPointerException e) {
@@ -294,7 +296,7 @@ public class CommonActions {
 
 	public static void verifyErrorMessageUnderTheField(WebElement element, Attribute attribute,
 			String expectedErrorMessage) {
-		
+
 		try {
 			String actualErrorMessage = getAttributeValue(element, attribute);
 			Loggers.logTheTest("The Web Element " + element + " ---> has Actual Error Message : " + actualErrorMessage
@@ -319,6 +321,12 @@ public class CommonActions {
 			Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage());
 			Assert.fail();
 		}
+	}
+
+	public static void uploadPhotoImage(WebElement element, String location) {
+		File file = new File(location);
+		element.sendKeys(file.getAbsolutePath());
+		pause(4000);
 	}
 
 	public static void switchToChildWindow(WebDriver driver, WebElement element) {

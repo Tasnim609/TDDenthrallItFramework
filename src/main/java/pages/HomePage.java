@@ -85,6 +85,10 @@ public class HomePage {
 	WebElement PhoneNumberMustBeExactly10Digits;
 	@FindBy(xpath = "//select[@id='id_gender']")
 	WebElement gender;
+	@FindBy(xpath = "//input[@name='image']")
+	WebElement personalImage;
+	@FindBy(xpath = "//input[@name='photo_id']")
+	WebElement photoId;
 	@FindBy(xpath = "//select[@id='id_birth_year']")
 	WebElement birthYear;
 	@FindBy(xpath = "//select[@id='id_birth_month']")
@@ -151,7 +155,7 @@ public class HomePage {
 	@FindBy(xpath = "//small[@id='i_am_error']")
 	WebElement iAmOfErrorMassage;
 
-	@FindBy(xpath = "//small[normalize-space(text())='Course Wish to Enroll is a required field. ']")
+	@FindBy(xpath = "//small[text()='Course Wish to Enroll is a required field.']")
 
 	WebElement courseOfErrorMassage;
 
@@ -203,6 +207,8 @@ public class HomePage {
 
 	@FindBy(xpath = "//a[text()='Cancel']")
 	WebElement cancelButton;
+	@FindBy(xpath = "//button[text()='Submit']")
+	WebElement submitButton;
 
 	public void clickLogInFromTollber() {
 		clickElement(logInFromTollber);
@@ -263,18 +269,16 @@ public class HomePage {
 		driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
 		pause(5000);
         File file = new File("./image/personalImage.png");
-		WebElement pI = driver.findElement(By.className("form-control error-border"));
-		pI.sendKeys(file.getAbsolutePath());
+		personalImage.sendKeys(file.getAbsolutePath());
 		pause(5000);
 		File file01 = new File("./image/photoId.jpg");
-		WebElement photoI = driver.findElement(By.xpath("(//input[@class='form-control error-border' ])[2]"));
-		photoI.sendKeys(file01.getAbsolutePath());
+		photoId.sendKeys(file01.getAbsolutePath());
 		pause(3000);
 	}
 
-	public void OppenApplicationPageandClickBackButton() {
+	public void OppenApplicationPageandClickSubmitButton() {
 		pause(3000);
-		driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
+		//driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
 		pause(3000);
@@ -283,31 +287,34 @@ public class HomePage {
 		inputText(mName, "");
 		pause(4000);
 		inputText(lName, "Chowdhury");
-		selectElelementFromDropdownOnebyOne(iM, iMList);
+		// selectElelementFromDropdownOnebyOne(iM, iMList);
 		pause(3000);
 		selectDropdown(iM, "a Student");
 		pause(3000);
-		selectElelementFromDropdownOnebyOne(course, courseOfList);
+		// selectElelementFromDropdownOnebyOne(course, courseOfList);
 		pause(300);
 		selectDropdown(course, "Python");
 		pause(3000);
 		inputText(phone, "6092332201");
 		pause(3000);
 		inputText(email, "tasnim5223@gmail.com");
-		inputText(passWord, "Darimee10");
+		pause(3000);
+		inputText(passWord, "Password@123");
+		pause(3000);
 		selectDropdown(gender, "Female");
 		pause(3000);
 
-		File file = new File("./image/personalImage.png");
-		WebElement pI = driver.findElement(By.className("form-control error-border"));
-		pI.sendKeys(file.getAbsolutePath());
-		File file01 = new File("./image/photoId.jpg");
-		WebElement photoI = driver.findElement(By.xpath("(//input[@class='form-control error-border' ])[2]"));
-		photoI.sendKeys(file01.getAbsolutePath());
+		uploadPhotoImage(personalImage, "./image/personalImage.png");
+
+		pause(3000);
+		uploadPhotoImage(photoId, "./image/photoId.jpg");
 		pause(3000);
 		selectDropdown(birthYear, "1982");
+		pause(3000);
 		selectDropdown(birthMonth, "October");
+		pause(3000);
 		selectDropdown(birthDate, "6");
+		pause(3000);
 		inputText(homeAddres1, "1648 Busleton Pike ");
 		inputTextThenClickEnter(homeAddres2, "");
 
@@ -328,9 +335,12 @@ public class HomePage {
 		selectElelementFromDropdownOnebyOne(language, listOfLanguage);
 		pause(3000);
 		selectDropdown(language, "Bengali");
+		pause(3000);
 		// waitUntilConditionThenClick(driver, submit);
 		inputText(signature, "Tasnim Chowdhury");
 		clickElement(checkBoxIagree);
+		pause(3000);
+		clickElement(submitButton);
 	}
 
 	public void clickLogo() {
@@ -363,8 +373,8 @@ public class HomePage {
 		clickElement(logInButton);
 	}
 
-	public void userIdPassWordLogInButton() {
-		// click logIn button
+	public void logInButtonFromTober() {
+		// click logInButtonFromTolber
 		driver.findElement(By.cssSelector("input.btn.btn-lg.px-5")).click();
 	}
 
@@ -413,21 +423,21 @@ public class HomePage {
 	}
 
 	public void openApplicationPageClickBackButton() {
-//		driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
-//		pause(4000);
+		//driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
+		pause(5000);
 		scrollIntoViewTheElementUsingJavascriptExecutor(driver, submit);
 		pause(4000);
-		// elementEnabled()
+		elementEnabled(backButton);
 		clickElement(backButton);
 		pause(4000);
-		// verifyCurrentUrl(driver,
 		// "https://enthrallit.com/accounts/login/?next=/dashboard/");
-		verifyCurrentUrl(driver, "https://enthrallit.com/dashboard/dashboard/automation/");
+		// verifyCurrentUrl(driver,
+		// "https://enthrallit.com/dashboard/dashboard/automation/");
 
 	}
 
 	public void openApplicationPageClickCancelButton() {
-		driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
+		//driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
 		pause(4000);
 		scrollIntoViewTheElementUsingJavascriptExecutor(driver, submit);
 		clickElement(cancelButton);
@@ -436,6 +446,12 @@ public class HomePage {
 	}
 
 	public void enrollmentPageErrorMassa() {
+		//driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
+		pause(5000);
+		scrollIntoViewTheElementUsingJavascriptExecutor(driver, submit);
+		pause(4000);
+		elementEnabled(submit);
+		clickElement(submit);
 		verifyErrorMessageUnderTheField(FirstNameErrorMassage, Attribute.INNER_HTML, "First Name is a required field.");
 		verifyErrorMessageUnderTheField(lastNameOfErrorMassageLastNameIsARequiredField, Attribute.INNER_HTML,
 				"Last Name is a required field.");
